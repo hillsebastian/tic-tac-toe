@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" content="width=device-width, initial-scale=1">
+		<title> Webpage </title>
+		<div id="canvas"> </div>
+		
+		<style>
+			
+		body {
+			background-color: gray;
+			}
+			
+		#box {
+			background-color: lightblue;
+			width: 650px;
+			height: 650px;
+			
+			}
+			
+		.reset {
+			background-color:black;
+			height: 80px;
+			width: 150px;
+			text-align: center;
+			font-size: 30px;
+			}
+		.flex {
+			display: flex;
+			flex-direction: row;
+			}
+		#column {
+			display:flex;
+			flex-direction: column;
+			}
+		#vert {
+			background-color: white	;
+			height:200px;
+			width:25px;
+		}
+		#hori {
+			background-color:white;
+			height: 25px;
+			width:200px;
+			}
+		#grid {
+			background-color:white;
+			width: 200px;
+			height:200px;
+			}
+		#fill {
+			background-color:white;
+			width: 25px;
+			height: 25px;
+			}
+		button {
+			width: 200px;
+			height: 200px;
+			background-color: lightblue;
+			border: none;
+			font-size: 100px;
+			color: white;
+			
+			}
+		
+			
+		</style>
+		
+	</head>
+	<body>
+		
+		<script>
+			values = [0,0,0,0,0,0,0,0,0];
+			turn = -1;
+			playing = 1;
+			
+			function nextTurn(){
+				turn *= -1;
+				
+				if (turn == -1) {
+					document.getElementById("turn").innerHTML = "Player 1's Turn";
+				} else {
+					document.getElementById("turn").innerHTML = "Player 2's Turn";
+				}
+			}
+			
+			function reset(){
+				values = [0,0,0,0,0,0,0,0,0];
+				turn = -1;
+				playing = 1;
+				if (turn == -1) {
+					document.getElementById("turn").innerHTML = "Player 1's Turn";
+				} else {
+					document.getElementById("turn").innerHTML = "Player 2's Turn";
+				}
+				document.getElementById('win').innerHTML = "Player _ Wins"
+				document.getElementById(0).innerHTML = ' ';
+				document.getElementById(1).innerHTML = ' ';
+				document.getElementById(2).innerHTML = ' ';
+				document.getElementById(3).innerHTML = ' ';
+				document.getElementById(4).innerHTML = ' ';
+				document.getElementById(5).innerHTML = ' ';
+				document.getElementById(6).innerHTML = ' ';
+				document.getElementById(7).innerHTML = ' ';
+				document.getElementById(8).innerHTML = ' ';
+			}	
+			
+			function update(pos){
+				
+				if (document.getElementById(pos).innerHTML == ' '){
+					 
+					if (turn == -1){
+						values[pos] = -1;
+						document.getElementById(pos).innerHTML = 'X';
+						
+
+						}	else {
+						values[pos] = 1;
+						document.getElementById(pos).innerHTML = 'O';
+						
+						}
+					nextTurn();
+				}	
+			}
+			
+			 function winCheck(){
+				if (values[0] == 1 && values[1] == 1 && values[2] == 1){
+					document.getElementById("win").innerHTML = 'Player 2 Wins!'; playing = 0;
+				}  else if (values[0] == -1 && values[1] == -1 && values[2] == -1){
+					document.getElementById("win").innerHTML = 'Player 1 Wins!'; playing = 0;
+				} else if (values[3] == 1 && values[4] == 1 && values[5] == 1){
+					document.getElementById("win").innerHTML = 'Player 2 Wins!'; playing = 0;
+				} else if (values[3] == -1 && values[4] == -1&& values[5] == -1){
+					document.getElementById("win").innerHTML = 'Player 1 Wins!'; playing = 0;	
+				} else if (values[6] == 1&& values[7] == 1 && values[8] == 1){
+					document.getElementById("win").innerHTML = 'Player 2 Wins!'; playing = 0;
+				} else if (values[5] == -1&& values[7] == -1&& values[8] == -1){
+					document.getElementById("win").innerHTML = 'Player 1 Wins!'; playing = 0;
+				} else if (values[0] == 1&& values[3] == 1&& values[6] == 1){
+					document.getElementById("win").innerHTML = 'Player 2 Wins!'; playing = 0;
+				} else if (values[0] == -1 && values[3] == -1&& values[6] == -1){
+					document.getElementById("win").innerHTML = 'Player 1 Wins!'; playing = 0;	
+				} else if(values[1] == 1&& values[4] == 1&& values[7] == 1){
+					document.getElementById("win").innerHTML = 'Player 2 Wins!'; playing = 0;
+				} else if (values[1] == -1&& values[4] == -1&& values[7] == -1){
+					document.getElementById("win").innerHTML = 'Player 1 Wins!'; playing = 0;	
+				} else if(values[2] == 1&& values[5] == 1&& values[8] == 1){
+					document.getElementById("win").innerHTML = 'Player 2 Wins!'; playing = 0;
+				} else if (values[2] == -1&& values[5] == -1 && values[8] == -1){
+					document.getElementById("win").innerHTML = 'Player 1 Wins!'; playing = 0;	
+				} else if(values[0] == 1&& values[4] == 1&& values[8] == 1){
+					document.getElementById("win").innerHTML = 'Player 2 Wins!'; playing = 0;
+				} else if (values[0] == -1&& values[4] == -1&& values[8] == -1){
+					document.getElementById("win").innerHTML = 'Player 1 Wins!'; playing = 0;
+				} else if(values[2] == 1  && values[4] == 1  && values[6] == 1){
+					document.getElementById("win").innerHTML = 'Player 2 Wins!'; playing = 0;
+				} else if (values[2] == -1 && values[4] == -1&& values[6] == -1){
+					document.getElementById("win").innerHTML = 'Player 1 Wins!'; playing = 0;
+				}  else {
+				return;	
+				}
+			} 
+			
+			function press(pos){
+				if (playing == 1) {
+				update(pos);
+				winCheck();
+				}
+				
+			}
+			
+			
+			
+		</script>
+	<div class="flex" style="justify-content:space-evenly">
+		<div id="box" style="background-color:darkgray;">
+			<h1 style="text-align:center;font-size:70px;"> Tic-Tac-Toe </h1>
+			<p style="text-align:center;font-size: 40px;"> Click on board to play </p>
+			<p id="turn" style="text-align:center;font-size: 40px;"> Player 1's Turn</p>
+			<p id="win" style="text-align:center;font-size: 40px;"> Player _ Wins </p>
+			<button onclick="reset();" class="reset" style="margin-left:250px;"> Reset </button>
+			
+		</div>
+		<div class="flex" id="box">
+			<div id="column">
+				<div id="grid">
+					<button id="0" onclick="press(0);"> </button>
+				</div>
+				<div id="hori">
+				
+				</div>
+				<div id="grid">
+					<button id="3" onclick="press(3);"> </button>
+				</div>
+				<div id="hori">
+					
+				</div>
+				<div id="grid">
+					<button id="6" onclick="press(6);"> </button>
+				</div>
+			</div>
+			<div id="column">
+				<div id="vert">
+				
+				</div>
+				<div id="fill">
+				
+				</div>
+				<div id="vert">
+				
+				</div>
+				<div id="fill">
+				
+				</div>
+				<div id="vert">
+				
+				</div>
+			</div>
+			<div id="column">
+				<div id="grid">
+					<button id="1" onclick="press(1);"> </button>
+				</div>
+				<div id="hori">
+				
+				</div>
+				<div id="grid">
+					<button id="4" onclick="press(4);"> </button>
+				</div>
+				<div id="hori">
+				
+				</div>
+				<div id="grid">
+					<button id="7" onclick="press(7);"> </button>
+				</div>
+			</div>
+			<div id="column">
+				<div id="vert">
+				
+				</div>
+				<div id="fill">
+				
+				</div>
+				<div id="vert">
+				
+				</div>
+				<div id="fill">
+				
+				</div>
+				<div id="vert">
+				
+				</div>
+			</div>
+			<div id="column">
+				<div id="grid">
+					<button id="2" onclick="press(2);"> </button>
+				</div>
+				<div id="hori">
+				
+				</div>
+				<div id="grid">
+					<button id="5" onclick="press(5);"> </button>
+				</div>
+				<div id="hori">
+				
+				</div>
+				<div id="grid">
+					<button id="8" onclick="press(8);"> </button>
+				</div>
+			</div>
+
+			
+		</div>
+		</div>
+	</body>
+</html>
